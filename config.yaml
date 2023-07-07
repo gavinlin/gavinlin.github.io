@@ -1,0 +1,7 @@
+baseURL: 'http://gavincode.com/'
+languageCode: 'en-us'
+title: 'gavincode'
+theme: 'PaperMod'
+
+params:
+  hideSummary: false
