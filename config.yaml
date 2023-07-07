@@ -3,5 +3,23 @@ languageCode: 'en-us'
 title: 'gavincode'
 theme: 'PaperMod'
 
+menu:
+  main:
+    - name: Tags
+      url: tags/
+
 params:
   hideSummary: false
+
+  homeInfoParams:
+    Title: "Gavin Code"
+    Content: >
+      **琐事**
+
+      - 记录学习
+
+      - 随便乱写
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/gavinlin"
