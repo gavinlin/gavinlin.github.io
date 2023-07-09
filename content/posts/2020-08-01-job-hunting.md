@@ -9,7 +9,7 @@ tags: ['job']
 
 <!-- excerpt -->
 
-<a data-flickr-embed="true" href="https://www.flickr.com/photos/189567920@N06/50178150576/in/dateposted-public/" title="bridge_rainbow"><img src="https://live.staticflickr.com/65535/50178150576_ebdf71a1ff.jpg" width="375" height="500" alt="bridge_rainbow"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+![rainbow](https://live.staticflickr.com/65535/50178150576_fa63ddcc6c_k.jpg)
 
 后来疫情逐渐严重，公司确定所有员工在家工作。当时公司说资金可以撑到年底，当时我在想疫情不会持续很长时间，应该不会有太大变动，也就继续安心工作了。
 
