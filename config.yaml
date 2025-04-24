@@ -3,12 +3,33 @@ languageCode: 'en-us'
 title: 'gavincode'
 theme: 'PaperMod'
 
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+
+minify:
+  disableXML: true
+
+pagination:
+  disableAliases: false
+  pagerSize: 5
+
 menu:
   main:
     - name: Tags
       url: tags/
 
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
 params:
+  env: production
   hideSummary: false
   ShowCodeCopyButtons: true
 
@@ -24,3 +45,19 @@ params:
   socialIcons:
     - name: github
       url: "https://github.com/gavinlin"
+
+  analytics:
+    google:
+      SiteVerificationTag: "G-8S7DFFRVQH"
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
