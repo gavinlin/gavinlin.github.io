@@ -32,6 +32,11 @@ services:
   googleAnalytics:
     id: G-8S7DFFRVQH
 
+privacy:
+  googleAnalytics:
+    disable: false
+    respectDoNotTrack: false
+
 params:
   env: production
   hideSummary: false
@@ -49,10 +54,6 @@ params:
   socialIcons:
     - name: github
       url: "https://github.com/gavinlin"
-
-  analytics:
-    google:
-      SiteVerificationTag: "G-8S7DFFRVQH"
 
   # for search
   # https://fusejs.io/api/options.html
