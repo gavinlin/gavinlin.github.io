@@ -1,6 +1,7 @@
 ---
 title: From Android to backend
 date: 2023-10-26
+draft: true
 tags: ['job']
 ---
 

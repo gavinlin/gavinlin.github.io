@@ -28,6 +28,10 @@ outputs:
     - RSS
     - JSON
 
+services:
+  googleAnalytics:
+    id: G-8S7DFFRVQH
+
 params:
   env: production
   hideSummary: false
