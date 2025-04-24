@@ -10,6 +10,7 @@ menu:
 
 params:
   hideSummary: false
+  ShowCodeCopyButtons: true
 
   homeInfoParams:
     Title: "Gavin Code"

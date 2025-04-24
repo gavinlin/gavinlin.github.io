@@ -1,0 +1,184 @@
+#+TITLE: How do I configure Emacs with AI's help
+#+DATE: 2025-04-24
+#+TAGS[]: Emacs AI
+#+AUTHOR: Gavin
+
+From my perspective, building an editor config takes a lot of effort: I need to know where to start, what plugnis I can use, should I use package manager, etc.. We do have a lot of options to use pre-built configs, for instance, [[https://www.spacemacs.org/][Spacemacs]] and [[https://github.com/doomemacs/doomemacs][Doom Emacs]]. However, they don't eliminate the learning curve. *I still need to gain the knowledge to use Emacs comfortably*.
+
+But in 2025, AI is booming. As an assistant, AI could boost the process dramatically.
+
+So I decide to try Emacs org-mode again, with AI's help. Here is my journey.
+
+* The first version
+
+The first question I asked:
+
+#+BEGIN_QUOTE
+I am new to emacs 30.1 and want to build the config from scratch, how should I start?
+#+END_QUOTE
+
+I got some useful information from it:
+
++ Emacs config can be ~~/.emacs~ or ~~/.emacs.d/init.el~ , and pointed out that init.el is the most common and reommended way
+
+#+BEGIN_SRC sh
+mkdir -p ~/.emacs.d
+touch ~/.emacs.d/init.el
+#+END_SRC
+
++ A basic setup
+
+#+BEGIN_SRC elisp
+  ;; Disable startup message
+  (setq inhibit-startup-message t)
+
+  ;; Disable toolbar, scrollbar, and menubar
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+
+  ;; Show line numbers
+  (global-display-line-numbers-mode t)
+
+  ;; Better scrolling
+  (setq scroll-step 1
+        scroll-conservatively 10000)
+
+  ;; Set default font
+  (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
+#+END_SRC
+
++ Use Package.el
+
+  The AI introduced Emacs' built-in package manager ~package.el~. and a modern solution ~straight.el~
+
+  It recommended the built-in
+
+#+BEGIN_SRC elisp
+  (require 'package)
+
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("gnu"   . "https://elpa.gnu.org/packages/")))
+
+  (package-initialize)
+
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  ;; Install use-package if not installed
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+
+#+END_SRC
+
+It works, however not ready for daily use yet.
+
+* Second attempt
+
+I used to a vim user, so I want to use evil plugin
+
+#+BEGIN_QUOTE
+please show me the minimal config block, with evil
+#+END_QUOTE
+
+it give me the config straight away, nice.
+
+I want to have a better looking interface so I asked question about theme
+
+#+BEGIN_QUOTE
+how about theme?
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+🎨 Option 1: Use a Built-in Theme
+🌈 Option 2: Install a Popular Theme (e.g., doom-themes)
+#+END_QUOTE
+
+with the config
+
+#+BEGIN_SRC elisp
+(unless (package-installed-p 'doom-themes)
+  (package-install 'doom-themes))
+
+(require 'doom-themes)
+(load-theme 'doom-one t)
+
+;; Optional Doom modeline (requires `all-the-icons`)
+;; (doom-themes-visual-bell-config)
+;; (doom-themes-org-config)
+#+END_SRC
+
+I asked some other questions, for example font setting, font size, and how to reload config without restarting
+
+#+BEGIN_SRC elisp
+M-x load-file RET ~/.emacs.d/init.el RET
+#+END_SRC
+
+Or a better way is making a command 
+
+#+BEGIN_SRC elisp
+  (defun my/reload-init-file ()
+    "Reload the Emacs init file without restarting."
+    (interactive)
+    (load-file "~/.emacs.d/init.el"))
+#+END_SRC
+
+Now, I have no idea about the snippets above, so I asked the AI to explain to me, it is a good time to learn how to write function.
+
+By now, I can use Emacs as my daily editor.
+
+* A better organized verison
+
+The ~init.el~ is being bigger and bigger, I need a better way to organize them, so I asked
+
+#+begin_src elisp
+;; init.el - Entry point for your Emacs config
+
+;; Bootstrap package system and use-package
+(require 'package)
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("gnu"   . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Load modular config files
+(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+
+(require 'ui)
+(require 'editing)
+(require 'org-setup)
+(require 'completion)
+(require 'snippets)
+(require 'keybinds)
+(require 'fzf)
+(require 'dired)
+
+;; Reload function
+(defun reload-init-file ()
+  "Reload Emacs config without restarting."
+  (interactive)
+  (load-file user-init-file))
+ 
+#+end_src
+
+From now on, I can add as many packages as I like without worrying init.el explosion.
+
+* Conclusion
+
+Finally, I becomes a Emacs user. I like this approach because I know what I am using, I can practice the keybindings through the way.
+
+Something I learnt about working with the AI
+
++ Starts with small questions
++ Don't try to make a perfect solution at the beginning, but keep revolution in mind
++ The AI is a good assistant, so ask any questions for explaining, or ask it to improve the result.
+
