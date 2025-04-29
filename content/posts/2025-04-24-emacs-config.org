@@ -180,5 +180,6 @@ Something I learnt about working with the AI
 
 + Starts with small questions
 + Don't try to make a perfect solution at the beginning, but keep revolution in mind
++ One bite at a time, it is easier to digest. It takes time from memeorizing the shortcut to do it without thinking
 + The AI is a good assistant, so ask any questions for explaining, or ask it to improve the result.
 
