@@ -9,6 +9,14 @@ But in 2025, AI is booming. As an assistant, AI could boost the process dramatic
 
 So I decide to try Emacs org-mode again, with AI's help. Here is my journey.
 
+* What Am I Trying to Achieve
+I'm builidng a minimal and fast Emacs config that serves as a personal note-taking and knowledge management system. My foucs is on:
+
++ Personal Note: Using org mode as the core toll for task management and planning
++ Linked Knowledge: Leveraging Org-roam for bi-directional linking, Zettelkasten-style notes and efficient information retrieval.
++ Simplicity: A clean UI without distractions, customized only where necessary.
+
+
 * The first version
 
 The first question I asked:
