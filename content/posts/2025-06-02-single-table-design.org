@@ -1,0 +1,14 @@
+#+TITLE: From MySQL Joins to DynamoDB: Modeling Parent-Child Relationships with Single-Table Design
+#+AUTHOR: Gavin
+#+DATE: 2025-06-02
+#+DRAFT: true
+#+TAGS[]: DynamoDB Single-Table
+
+* Introduction
+
+In traditional relational databases like MySQL, it's natural to model one-to-many relationships using foreign keys and joins. For example, a *Project* has many *Steps*, and retriving a *Project* given a *Step* is as simple as a JOIN Query.
+
+But when migrating to DynamoDB, this approach doesn't translate directly. DynamoDB has no JOINs or foreign keys. Instead, you need to model your data based on access patterns.
+
+This post walks through how to rethink the schema using a single-table design that supports the same functionality with better performance.
+
