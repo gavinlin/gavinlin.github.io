@@ -1,7 +1,6 @@
 #+TITLE: What I learned From Merging Two DynamodDB Tables
 #+AUTHOR: Gavin
 #+DATE: 2025-06-02
-#+DRAFT: true
 #+TAGS[]: DynamoDB Single-Table
 
 * Introduction
@@ -35,9 +34,9 @@ Every time we showed order details to customers, we made two API calls. It worke
 
 * The "Aha" Moment
 
-I realized we were fighting DynamoDB instead of working with it. The database was designed for single-table patterns, and here we were trying to make it behave like a relational database.
+I realized we were fighting DynamoDB instead of working with it. The database was designed for [[https://aws.amazon.com/blogs/database/single-table-vs-multi-table-design-in-amazon-dynamodb/][single-table pattern]], and here we were trying to make it behave like a relational database.
 
-The breakthrough came when I stopped thinking about "tables" and started thinking about "access patterns":
+The breakthrough came when I stopped thinking about *"tables"* and started thinking about *"access patterns"*:
 - Get order with tracking info
 - Find order by tracking number
 - Update order status
@@ -114,11 +113,9 @@ Created a second record specifically for tracking number lookups:
 }
 #+END_SRC
 
-I chose the duplicate approach because it was faster and cheaper for our use case, even though it meant maintaining consistency between the records.
+I chose the GSI approach because it was easy to maintain.
 
 * What I Didn't Expect
-
-*The performance improvement was dramatic.* Going from 2 API calls to 1 cut our response times in half and reduced our DynamoDB costs significantly.
 
 *The code actually got simpler.* No more complex logic to stitch together data from different tables. Everything came back in one response.
 
@@ -132,16 +129,6 @@ I chose the duplicate approach because it was faster and cheaper for our use cas
 
 *BatchGetItem is your friend.* When I did need to fetch multiple related items efficiently, BatchGetItem was much better than multiple individual calls.
 
-* The Migration Process
-
-I kept it simple:
-
-1. *Week 1:* Start writing to both old tables and new single table
-2. *Week 2:* Switch reads to the new table (with a feature flag for rollback)
-3. *Week 3:* Stop writing to old tables and clean up
-
-The feature flag was crucial. Being able to instantly roll back gave me confidence to make the switch.
-
 * What I'd Do Differently
 
 I spent too much time overthinking the design. The single-table pattern has well-established conventions - I should have just followed them instead of trying to reinvent anything.
@@ -150,7 +137,7 @@ I also should have measured the actual performance impact earlier. The improveme
 
 * The Bottom Line
 
-Moving from two tables to one wasn't just about following DynamoDB best practices - it genuinely made our application faster and cheaper to run. The key insight was stopping the fight against DynamoDB's design and embracing what it's good at.
+Moving from two tables to one wasn't just about following DynamoDB best practices - it genuinely made our application easy to extend. The key insight was stopping the fight against DynamoDB's design and embracing what it's good at.
 
 If you're making multiple API calls to get related data from DynamoDB, you're probably doing more work than you need to. Single-table design isn't always the answer, but for related entities that are frequently accessed together, it's usually the right choice.
 
